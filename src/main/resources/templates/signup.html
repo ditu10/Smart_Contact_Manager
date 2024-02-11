@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="base::layout('Smart Contact Manager',~{::body})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class=" pt-3 container" th:fragment="body">
+        <div class="row col-md-8 offset-2 bg-form">
+            <div class="text-center">
+                <img style="width: 80px" src="/images/register.png" alt="">
+            </div>
+            <h1 class="pb-3 text-center">Sign Up</h1>
+            <form th:action="@{/do_register}" method="post" th:object="${user}">
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Enter your Name</label>
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           id="name"
+                           th:value="${user.name}"
+                           th:classappend="${#fields.hasErrors('name')}? 'is-invalid' : ''"
+                           aria-describedby="emailHelp"
+                    >
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        <p th:each="e : ${#fields.errors('name')}" style="color: red" th:text="${e}"></p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Enter your email</label>
+                    <input type="email"
+                           name="email"
+                           th:value="${user.email}"
+                           th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''"
+                           class="form-control"
+                           id="email"
+                    >
+                    <div id="validationServer04Feedback" class="invalid-feedback">
+                        <p th:each="e : ${#fields.errors('email')}" style="color: red" th:text="${e}"></p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Enter your Password</label>
+                    <input type="password"
+                           name="password"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('password')}? 'is-invalid' : ''"
+                           id="password"
+                    >
+                    <div id="validationServer05Feedback" class="invalid-feedback">
+                        <p th:each="e : ${#fields.errors('password')}" style="color: red" th:text="${e}"></p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="about" class="form-label">About yourself</label>
+                    <textarea class="form-control"
+                              placeholder="write something about yourself"
+                              th:text="${user.about}"
+                              name="about"
+                              th:classappend="${#fields.hasErrors('about')}? 'is-invalid' : ''"
+                              id="about"
+                              rows="10"
+                    ></textarea>
+                    <div id="validationServer06Feedback" class="invalid-feedback">
+                        <p th:each="e : ${#fields.errors('about')}" style="color: red" th:text="${e}"></p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class=" btn bg-default text-white btn-outline-primary ">Sign Up</button>
+                    <button type="reset" class="btn btn-warning">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
