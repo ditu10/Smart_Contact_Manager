@@ -11,6 +11,7 @@
                 <img style="width: 80px" src="/images/register.png" alt="">
             </div>
             <h1 class="pb-3 text-center">Sign Up</h1>
+<!--            <p th:text="${result?.getFieldError('name')?.getDefaultMessage()}"></p>-->
             <form th:action="@{/do_register}" method="post" th:object="${user}">
 
                 <div class="mb-3">
@@ -19,20 +20,21 @@
                            class="form-control"
                            name="name"
                            id="name"
-                           th:value="${user.name}"
-                           th:classappend="${#fields.hasErrors('name')}? 'is-invalid' : ''"
+                           th:value="${user?.name}"
+                           th:classappend="${#fields?.hasErrors('name')} ? 'is-invalid' : ''"
                            aria-describedby="emailHelp"
                     >
                     <div id="validationServer03Feedback" class="invalid-feedback">
                         <p th:each="e : ${#fields.errors('name')}" style="color: red" th:text="${e}"></p>
                     </div>
+
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Enter your email</label>
                     <input type="email"
                            name="email"
-                           th:value="${user.email}"
+                           th:value="${user?.email}"
                            th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''"
                            class="form-control"
                            id="email"
@@ -40,6 +42,7 @@
                     <div id="validationServer04Feedback" class="invalid-feedback">
                         <p th:each="e : ${#fields.errors('email')}" style="color: red" th:text="${e}"></p>
                     </div>
+
                 </div>
 
                 <div class="mb-3">
@@ -59,7 +62,7 @@
                     <label for="about" class="form-label">About yourself</label>
                     <textarea class="form-control"
                               placeholder="write something about yourself"
-                              th:text="${user.about}"
+                              th:text="${user?.about}"
                               name="about"
                               th:classappend="${#fields.hasErrors('about')}? 'is-invalid' : ''"
                               id="about"

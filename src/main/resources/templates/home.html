@@ -6,6 +6,9 @@
 </head>
 <body>
     <div class="banner pt-5 text-light text-center" th:fragment="body">
+        <div th:if="${success}" class="alert alert-success" role="alert">
+            <p th:text="${success}"></p>
+        </div>
         <h1 class="pb-3">Smart Contact Manager</h1>
         <p>Start collecting your contacts in very smarter way. We provide very efficient and smarter way of handling contacts.</p>
         <a href="/signup">

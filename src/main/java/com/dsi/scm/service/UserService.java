@@ -5,9 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    public User addAdditionalFieldsWithDefaultValues(User user){
+    public void addAdditionalFieldsWithDefaultValues(User user){
         user.setEnabled(true);
         user.setRole("USER");
-        return user;
     }
 }

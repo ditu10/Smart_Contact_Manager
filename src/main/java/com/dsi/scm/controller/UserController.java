@@ -3,12 +3,17 @@ package com.dsi.scm.controller;
 import com.dsi.scm.dao.UserRepository;
 import com.dsi.scm.model.User;
 import com.dsi.scm.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -25,14 +30,30 @@ public class UserController {
     }
 
     @PostMapping("/do_register")
-    public String handleRegister(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
-        System.out.println(result);
-        if(result.hasErrors()){
-            System.out.println("\n\nSomething wrong!! \n\n");
-            return "signup";
+    public String handleRegister(@Valid @ModelAttribute User user, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if(result.hasErrors()) {
+            System.out.println(result);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
+            redirectAttributes.addFlashAttribute("user", user);
+
+            return "redirect:/signup";
         }
-        User user1 = userService.addAdditionalFieldsWithDefaultValues(user);
-        User savedUser = userRepository.save(user1);
-        return "home";
+
+        try{
+            userService.addAdditionalFieldsWithDefaultValues(user);
+            userRepository.save(user);
+        }catch (Exception e) {
+            if (e instanceof DataIntegrityViolationException) {
+                result.rejectValue("email", "error.duplicate_email", "This email already exists");
+                redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
+                redirectAttributes.addFlashAttribute("user", user);
+
+            }
+
+            return "redirect:/signup";
+        }
+        redirectAttributes.addFlashAttribute("success", "Congratulations, You have Successfully registered!");
+        return "redirect:/home";
     }
 }
