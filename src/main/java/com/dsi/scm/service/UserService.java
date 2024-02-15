@@ -1,12 +1,32 @@
 package com.dsi.scm.service;
 
+import com.dsi.scm.dao.UserRepository;
 import com.dsi.scm.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+
+
     public void addAdditionalFieldsWithDefaultValues(User user){
         user.setEnabled(true);
-        user.setRole("USER");
+        user.setRole("ROLE_USER");
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    }
+
+    public void save(User user){
+        userRepository.save(user);
+    }
+
+    public User getUserByUserName(String userEmail) {
+        return userRepository.findByEmail(userEmail);
     }
 }
