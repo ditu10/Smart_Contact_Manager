@@ -16,3 +16,49 @@ body{
     background: #FFFFFF;
     padding: 20px;
 }
+
+.sidebar{
+    width: 16%;
+    position: fixed;
+    height: 100%;
+    background: #FFFFFF;
+}
+
+.sidebar a{
+    display: block;
+    padding: 15px 50px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #133819;
+}
+
+.custom_bar{
+    display: none;
+}
+
+.sidebar a:hover{
+    background: darkgray;
+}
+
+.content{
+    margin-left: 16%;
+    padding-left: 30px;
+
+}
+
+@media only screen and (max-width: 991px)  {
+    .sidebar{
+        display: none;
+        width: 80%;
+        position: fixed;
+        height: 100%;
+        background: #FFFFFF;
+    }
+    .custom_bar{
+        display: block;
+    }
+    .content{
+        margin-left: 0;
+    }
+}
+

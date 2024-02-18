@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="base::layout('Smart Contact Manager',~{::body})">
+<html lang="en" th:replace="base::layout('Smart Contact Manager',~{::home})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <div class="banner pt-5 text-light text-center" th:fragment="body">
+    <div class="banner pt-5 text-light text-center" th:fragment="home">
         <div th:if="${success}" class="alert alert-success" role="alert">
             <p th:text="${success}"></p>
         </div>

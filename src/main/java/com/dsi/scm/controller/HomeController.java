@@ -13,8 +13,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+
 @Controller
 public class HomeController {
+
+    @ModelAttribute
+    public Principal getPrincipal(Principal principal) {
+        System.out.println("\n\n" + principal + "\n\n");
+        return principal;
+    }
 
     private final UserService userService;
 
@@ -25,12 +33,12 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String index(){
+    public String index(Model model){
         return "home";
     }
 
     @GetMapping("/home")
-    public String home(){
+    public String home(Model model){
         return "home";
     }
     @GetMapping("/signup")

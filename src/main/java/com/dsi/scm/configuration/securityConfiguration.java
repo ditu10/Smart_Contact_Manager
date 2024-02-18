@@ -55,14 +55,14 @@ public class securityConfiguration {
                 )
                 .formLogin(form ->
                         form.loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/")
+                                .loginProcessingUrl("/dologin")
+                                .defaultSuccessUrl("/home")
                                 //.failureUrl("/login")
                                 .permitAll()
                 )
                 .logout(logout->logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/login?logout")
                         .invalidateHttpSession(true));
         return http.build();
     }
