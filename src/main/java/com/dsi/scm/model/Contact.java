@@ -11,9 +11,10 @@ public class Contact {
     private String name;
     private String email;
     private String work;
+    private String address;
     private String phone;
     private String imageUrl;
-    @Column(length = 5000)
+    @Column(length = 1000)
     private String description;
 
     @ManyToOne
@@ -75,5 +76,35 @@ public class Contact {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", work='" + work + '\'' +
+                ", phone='" + phone + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.dsi.scm.service;
 
 import com.dsi.scm.dao.UserRepository;
+import com.dsi.scm.model.Contact;
 import com.dsi.scm.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,13 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public void updateUserWithContact(User user, Contact contact){
+        contact.setUser(user);
+        user.getContacts().add(contact);
+
+        this.save(user);
+    }
 
 
 

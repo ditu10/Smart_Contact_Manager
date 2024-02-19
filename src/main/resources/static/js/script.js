@@ -1,12 +1,9 @@
 console.log("hello world!")
 
 const toggleSidebar = () =>{
-    console.log("clicked")
-    if($('.sidebar').is("visible")){
-        $(".sidebar").css("display", "none")
-        $(".content").css("margin-left", "0")
-    }else{
-        $(".sidebar").css("display", "block")
-        $(".content").css("margin-left", "30%")
-    }
+    let sidebar = document.getElementById("main-sidebar");
+
+    sidebar.classList.toggle("sidebar-t");
+
+
 }

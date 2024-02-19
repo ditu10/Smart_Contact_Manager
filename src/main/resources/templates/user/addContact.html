@@ -12,7 +12,12 @@
                 <div class="container-fluid mt-4 ">
                     <div class="row">
                         <div class="col-md-10 offset-md-1">
-                            <form action="#" th:action="@{/user/process-contact}" method="post" enctype="multipart/form-data">
+                            <form action="#"
+                                  th:object="${contact}"
+                                  enctype="multipart/form-data"
+                                  th:action="@{/user/process-contact}"
+                                  method="post"><!--enctype="multipart/form-data"-->
+
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user "></i></span>
                                     <input type="text"
@@ -30,7 +35,7 @@
                                            class="form-control"
                                            placeholder="email"
                                            aria-label="email"
-                                           aria-describedby="basic-addon1"
+                                           aria-describedby="basic-addon2"
                                            name="email"
                                     >
                                 </div>
@@ -41,7 +46,18 @@
                                            class="form-control"
                                            placeholder="work"
                                            aria-label="work"
-                                           aria-describedby="basic-addon1"
+                                           aria-describedby="basic-addon3"
+                                           name="work"
+                                    >
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon5"><i class="fas fa-address-book"></i></i></span>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="address"
+                                           aria-label="address"
+                                           aria-describedby="basic-addon5"
                                            name="work"
                                     >
                                 </div>
@@ -52,7 +68,7 @@
                                            class="form-control"
                                            placeholder="phone"
                                            aria-label="phone"
-                                           aria-describedby="basic-addon1"
+                                           aria-describedby="basic-addon4"
                                            name="phone"
                                     >
                                 </div>
@@ -69,7 +85,7 @@
 
                                 <div class="mb-3">
                                     <p>Choose profile pic:</p>
-                                    <input type="file" name="imageUrl" id="image" >
+                                    <input type="file" name="image" id="image" >
                                 </div>
 
 
