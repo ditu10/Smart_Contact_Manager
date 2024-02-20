@@ -3,8 +3,11 @@ package com.dsi.scm.controller;
 import com.dsi.scm.dao.UserRepository;
 import com.dsi.scm.model.User;
 import com.dsi.scm.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,7 +85,13 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Authentication auth, HttpServletRequest request){
+        if (auth != null && auth.isAuthenticated()) {
+
+            return "redirect:/user/dashboard";
+
+        }
+
         return "login";
     }
 

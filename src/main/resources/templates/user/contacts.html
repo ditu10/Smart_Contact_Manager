@@ -5,14 +5,75 @@
     <title>Title</title>
 </head>
 <body>
-    <section>
-        <div th:each="contact : ${contacts}">
-            <img th:src="${contact.getImageUrl()}" alt="">
-            <h1 th:text="${contact.name}"></h1>
-            <h1 th:text="${contact.address}"></h1>
-            <h1 th:text="${contact.email}"></h1>
-            <h1 th:text="${contact.description}"></h1>
-        </div>
+    <section class="me-3">
+
+        <h2 class="text-center">All Contacts</h2>
+
+        <table class="table table-success table-bordered table-striped mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
+
+            <tbody th:each="contact : ${contacts}">
+                <tr>
+                    <td th:text="${contact.id}"></td>
+                    <td th:text="${contact.name}"></td>
+                    <td th:text="${contact.email}"></td>
+                    <td th:text="${contact.address}"></td>
+                    <td th:text="${contact.phone}"></td>
+                    <td>
+                        <div class="text-center" th:with="url = '/user/' + ${contact.user.id} + '/contact/' + ${contact.id}">
+                            <form th:action="${url}" method="post">
+                                <button type="submit" id="viewButton" class="btn btn-outline-primary ">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-success ">
+                                    <i class="far fa-edit"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-outline-danger ">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                <li th:if="${currentPage+1} != 1" class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">Prev</span>
+                    </a>
+                </li>
+
+                <li th:classappend="${currentPage} == ${i}-1 ? 'active': ''" th:each="i : ${#numbers.sequence(1,totalPage)}"
+                    class="page-item">
+
+                    <a th:href="@{'/user/contacts/'+ ${i} }" class="page-link" th:text="${i}" ></a>
+                </li>
+
+
+                <li th:if="${currentPage+1} != ${totalPage}" class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+
     </section>
 </body>
 </html>

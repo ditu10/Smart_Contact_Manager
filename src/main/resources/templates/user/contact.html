@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="user/base::layout('contact details',~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <section>
+        <div >
+            <h2 th:text="${contact.name}"></h2>
+            <img th:src="@{'/images/' + ${contact.getImageUrl()}}" alt="">
+        </div>
+    </section>
+
+</body>
+</html>
