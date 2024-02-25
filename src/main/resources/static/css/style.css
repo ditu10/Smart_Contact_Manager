@@ -46,6 +46,13 @@ body{
 
 }
 
+.contact-profile-pic{
+    height: 35px;
+    width: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 @media only screen and (max-width: 991px)  {
     .sidebar{
         width: 200px;

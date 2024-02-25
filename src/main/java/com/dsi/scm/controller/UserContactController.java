@@ -39,7 +39,7 @@ public class UserContactController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/{userId}/contact/{contactId}")
+    @GetMapping("/{userId}/contact/{contactId}")
     public String showContactDetails(@PathVariable int userId,
                                      @PathVariable int contactId,
                                      Model model) {
@@ -47,5 +47,11 @@ public class UserContactController {
         Contact contact = contactService.getContactByUserAndContactId(user,contactId);
         model.addAttribute("contact", contact);
         return "user/contact";
+    }
+
+    @GetMapping("/delete")
+    public String deleteContact(@RequestParam int contactId) {
+        contactService.deleteContact(contactId);
+        return "redirect:/user/contacts?page=1";
     }
 }

@@ -28,10 +28,12 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final ContactRepository contactRepository;
+    private final int pageSize;
 
     public UserController(UserService userService, ContactRepository contactRepository) {
         this.userService = userService;
         this.contactRepository = contactRepository;
+        this.pageSize = 3;
     }
 
     @ModelAttribute
@@ -53,22 +55,19 @@ public class UserController {
         return "user/dashboard";
     }
 
-    @GetMapping("/contacts/{page}")
+    @GetMapping("/contacts")
     public String viewContacts(Model model,
-                               @PathVariable int page) {
+                               @RequestParam int page) {
         User user = (User) model.getAttribute("user");
         if(user == null){
             return "redirect:/login";
         }
-
-        Pageable pageable = PageRequest.of(page-1,3);
+        Pageable pageable = PageRequest.of(page-1,pageSize);
         Page<Contact> contacts = contactRepository.getContactsByUser(user, pageable);
 
-        System.out.println("currentPage :" + page);
-        System.out.println("Totalpage :" + contacts.getTotalPages());
-
         model.addAttribute("contacts", contacts);
-        model.addAttribute("currentPage", page-1);
+        model.addAttribute("currentPage", page);
+        System.out.println("/n totalPage = " + contacts.getTotalPages() + "/n");
         model.addAttribute("totalPage", contacts.getTotalPages());
         System.out.println();
         return "user/contacts";
@@ -91,15 +90,12 @@ public class UserController {
 
             if(image.isEmpty()){
                 // validation
-                System.out.println("Image file is empty!\n");
+                contact.setImageUrl("profile.jpg");
             }else{
                 String imageUrl = principal.getName() + "-" + image.getSize()+ "-" + image.getOriginalFilename();
                 contact.setImageUrl(imageUrl);
-                System.out.println("ImageURL: " + imageUrl);
-                System.out.println("---------------------");
                 File savedFile = new ClassPathResource("static/images").getFile();
                 Path path = Paths.get(savedFile+File.separator+imageUrl);
-                System.out.println("Path: " + path);
                 Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
             }

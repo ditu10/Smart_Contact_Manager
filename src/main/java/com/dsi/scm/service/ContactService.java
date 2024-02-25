@@ -17,4 +17,8 @@ public class ContactService {
     public Contact getContactByUserAndContactId(User user, int contactId){
         return contactRepository.getContactByUserAndId(user, contactId);
     }
+
+    public void deleteContact(int contactId) {
+        this.contactRepository.deleteById(contactId);
+    }
 }
