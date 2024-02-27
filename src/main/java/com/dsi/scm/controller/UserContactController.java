@@ -8,6 +8,8 @@ import com.dsi.scm.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -51,7 +53,45 @@ public class UserContactController {
 
     @GetMapping("/delete")
     public String deleteContact(@RequestParam int contactId) {
-        contactService.deleteContact(contactId);
+        Contact contact = contactService.getContactById(contactId);
+        contactService.deleteContactImage(contact);
+        contactService.deleteContact(contact);
         return "redirect:/user/contacts?page=1";
+    }
+
+    @GetMapping("/update-contact")
+    public String updateContactForm(@RequestParam int contactId,
+                                    Model model) {
+        Contact contact = contactService.getContactByUserAndContactId((User) model.getAttribute("user"),contactId);
+        model.addAttribute("contact", contact);
+        return "user/updateForm";
+    }
+
+    @PostMapping("update-contact")
+    public String updateContactHandler(@ModelAttribute Contact contact,
+                                       @RequestParam MultipartFile image,
+                                       Principal principal,
+                                       RedirectAttributes redirectAttributes) {
+
+        User user = userService.getUserByUserName(principal.getName());
+        Contact contact1 = contactService.getContactById(contact.getId());
+        try{
+            if(image.isEmpty()){
+                contact.setImageUrl(contact1.getImageUrl());
+            }else {
+                contactService.deleteContactImage(contact1);
+                contactService.uploadContactImage(image,contact,principal);
+            }
+
+            contact.setUser(user);
+            contactService.save(contact);
+
+            redirectAttributes.addFlashAttribute("message", "contact updated successfully!! Add more...");
+            redirectAttributes.addFlashAttribute("type", "success");
+            return "redirect:/user/" + user.getId() + "/contact/" + contact.getId();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "redirect:/user/update-contact?contactId="+contact.getId();
     }
 }

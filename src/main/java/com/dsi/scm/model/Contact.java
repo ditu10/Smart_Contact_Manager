@@ -17,7 +17,7 @@ public class Contact {
     @Column(length = 1000)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     public Contact(){}

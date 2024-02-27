@@ -29,6 +29,10 @@
                             <td th:text="${contact.email}"></td>
                         </tr>
                         <tr>
+                            <th scope="row">Work</th>
+                            <td th:text="${contact.work}"></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Address</th>
                             <td th:text="${contact.address}"></td>
                         </tr>
@@ -46,7 +50,7 @@
                     </th:block>
                 </div>
                 <div class="text-center" >
-                    <a class="btn btn-outline-success ">
+                    <a th:href="@{'/user/update-contact?contactId=' + ${contact.id}}" class="btn btn-outline-success ">
                         <i class="far fa-edit"></i>
                     </a>
                     <a th:onclick="|deleteContact(${contact.id})|" class="btn btn-outline-danger ">

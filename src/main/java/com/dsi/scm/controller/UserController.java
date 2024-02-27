@@ -4,6 +4,7 @@ import com.dsi.scm.dao.ContactRepository;
 import com.dsi.scm.dao.UserRepository;
 import com.dsi.scm.model.Contact;
 import com.dsi.scm.model.User;
+import com.dsi.scm.service.ContactService;
 import com.dsi.scm.service.UserService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -28,11 +29,13 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final ContactRepository contactRepository;
+    private final ContactService contactService;
     private final int pageSize;
 
-    public UserController(UserService userService, ContactRepository contactRepository) {
+    public UserController(UserService userService, ContactRepository contactRepository, ContactService contactService) {
         this.userService = userService;
         this.contactRepository = contactRepository;
+        this.contactService = contactService;
         this.pageSize = 3;
     }
 
@@ -88,19 +91,12 @@ public class UserController {
         try {
             User user = userService.getUserByUserName(principal.getName());
 
-            if(image.isEmpty()){
-                // validation
-                contact.setImageUrl("profile.jpg");
-            }else{
-                String imageUrl = principal.getName() + "-" + image.getSize()+ "-" + image.getOriginalFilename();
-                contact.setImageUrl(imageUrl);
-                File savedFile = new ClassPathResource("static/images").getFile();
-                Path path = Paths.get(savedFile+File.separator+imageUrl);
-                Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            contactService.uploadContactImage(image,contact,principal);
+            userService.setUserOfContact(user,contact);
 
-            }
+            contactRepository.save(contact);
 
-            userService.updateUserWithContact(user,contact);
+
             redirectAttributes.addFlashAttribute("message", "contact added successfully!! Add more...");
             redirectAttributes.addFlashAttribute("type", "success");
             return "redirect:/user/add-contact";

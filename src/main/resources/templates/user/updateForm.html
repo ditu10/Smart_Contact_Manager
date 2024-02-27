@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="user/base::layout('Update Contact',~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <section>
+        <div class="card me-4">
+            <!--            alert message-->
+            <div th:if="${message}" th:classAppend="'alert-'+${type}" class="alert text-center mt-1 container" role="alert">
+                <span th:text="${message}"></span>
+            </div>
+
+            <div class="card-body">
+                <h1 class="text-center mt-2">Edit Your Contact</h1>
+                <div class="container-fluid mt-4 ">
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <form action="#"
+                                  th:object="${contact}"
+                                  enctype="multipart/form-data"
+                                  th:action="@{'/user/update-contact'}"
+                                  method="post"><!--enctype="multipart/form-data"-->
+
+                                <input type="number" hidden="hidden" name="id" th:value="${contact.id}">
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user "></i></span>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Username"
+                                           aria-label="Username"
+                                           aria-describedby="basic-addon1"
+                                           name="name"
+                                           th:value="${contact.name}"
+                                           required
+                                    >
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon2"><i class="far fa-envelope"></i></span>
+                                    <input type="email"
+                                           class="form-control"
+                                           placeholder="email"
+                                           aria-label="email"
+                                           aria-describedby="basic-addon2"
+                                           name="email"
+                                           th:value="${contact.email}"
+                                           required
+                                    >
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon3"><i class="fas fa-briefcase"></i></i></span>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="work"
+                                           aria-label="work"
+                                           aria-describedby="basic-addon3"
+                                           name="work"
+                                           th:value="${contact.work}"
+                                           required
+                                    >
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon5"><i class="fas fa-address-book"></i></i></span>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="address"
+                                           aria-label="address"
+                                           aria-describedby="basic-addon5"
+                                           name="address"
+                                           th:value="${contact.address}"
+                                           required
+                                    >
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon4"><i class="fas fa-phone"></i></i></span>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="phone"
+                                           aria-label="phone"
+                                           aria-describedby="basic-addon4"
+                                           name="phone"
+                                           th:value="${contact.phone}"
+                                           required
+                                    >
+                                </div>
+
+                                <div class="mb-3">
+                                    <textarea class="form-control"
+                                              id="mytextarea"
+                                              rows="10"
+                                              placeholder="Write some description about this person"
+                                              name="description"
+                                              th:text="${contact.description}"
+
+                                    ></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <img style="height: 250px; width: 250px" class="d-block mx-auto contact-profile-pic" th:src="@{'/images/'+${contact.imageUrl}}" alt="">
+                                    <p>Choose profile pic:</p>
+                                    <input type="file" name="image" id="image" >
+                                </div>
+
+
+                                <div class="text-center">
+                                    <button class="bg-default border-0 px-4 py-2 rounded text-light" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://cdn.tiny.cloud/1/obbvnzzcp1p4bn9bmyz1brav55e7xd591z4z42h0kjx4hn3h/tinymce/6/tinymce.min.js"
+                referrerpolicy="origin"></script>
+
+
+        <script>
+            tinymce.init({
+                selector: '#mytextarea'
+            });
+        </script>
+
+    </section>
+</body>
+</html>
