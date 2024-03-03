@@ -9,6 +9,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/fontawesome-free-5.15.4/css/all.min.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
 </head>
 <body>
 
@@ -19,7 +20,7 @@
             <a href="/user/dashboard"><i class="fas fa-home pe-sm-1 pe-lg-2"></i> Home</a>
             <a href="/user/contacts?page=1"><i class="fas fa-id-card-alt pe-lg-2"></i> View Contacts</a>
             <a href="/user/add-contact"><i class="fas fa-user-plus pe-lg-2"></i> Add Contact</a>
-            <a href=""><i class="fas fa-user-circle pe-lg-2"></i> My Profile</a>
+            <a href="/user/profile"><i class="fas fa-user-circle pe-lg-2"></i> My Profile</a>
             <a href=""><i class="fas fa-cogs pe-lg-2"></i> Settings</a>
             <a href="/logout"><i class="fas fa-sign-out-alt pe-lg-2"></i> Logout</a>
         </div>
@@ -35,6 +36,7 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
 
 
 </body>

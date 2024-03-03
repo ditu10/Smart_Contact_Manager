@@ -30,7 +30,7 @@ public class UserController {
     private final UserService userService;
     private final ContactRepository contactRepository;
     private final ContactService contactService;
-    private final int pageSize;
+    private int pageSize;
 
     public UserController(UserService userService, ContactRepository contactRepository, ContactService contactService) {
         this.userService = userService;
@@ -56,6 +56,15 @@ public class UserController {
     @GetMapping("/dashboard")
     public String userDashboard(Model model) {
         return "user/dashboard";
+    }
+
+    @PostMapping("/pageSize")
+    public String setPageSize(@RequestParam int pageSize) {
+        if(pageSize>0 && pageSize<=100){
+            this.pageSize = pageSize;
+        }
+
+        return "redirect:/user/contacts?page=1";
     }
 
     @GetMapping("/contacts")
@@ -104,5 +113,12 @@ public class UserController {
             System.out.println(e.getMessage());
         }
         return "redirect:/user/add-contact";
+    }
+
+    @GetMapping("/profile")
+    public String viewProfile(Model model) {
+        User user = (User) model.getAttribute("user");
+        model.addAttribute("user", user);
+        return "user/profile";
     }
 }

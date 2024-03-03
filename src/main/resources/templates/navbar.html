@@ -1,4 +1,4 @@
-<!doctype html>
+    <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +37,7 @@
                     </li>
 
                     <li th:if="${principal}">
-                        <a href="/" class="nav-link" th:text="${principal.getName()}"></a>
+                        <a href="/user/profile" class="nav-link" th:text="${principal.getName()}"></a>
                     </li>
                     <li th:if="${principal}" class="nav-item ">
                         <a class="nav-link text-danger text-bold" href="/logout?logout">Logout</a>

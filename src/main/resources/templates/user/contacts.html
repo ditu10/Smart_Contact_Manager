@@ -9,11 +9,31 @@
 
         <h2 class="text-center">All Contacts</h2>
 
-        <table class="table table-success table-bordered table-striped mt-3">
+        <form th:action="@{'/user/pageSize'}" method="post">
+
+            <label>
+                <b>Page size: </b>
+                <input class="py-1" type="number" min="1" max="100" name="pageSize" required >
+                <button class="btn btn-outline-success" type="submit"> <i class="fas fa-save"></i> Save</button>
+            </label>
+        </form>
+
+        <table id="myTable" class="table table-success table-bordered table-striped mt-3">
             <thead>
                 <tr>
                     <th scope="col">#ID</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">
+                        <div class="d-flex justify-content-between">
+                            <div>Name</div>
+
+                            <div>
+                                <i class="fas fa-arrow-up"></i>
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                        </div>
+
+
+                    </th>
                     <th scope="col">Email</th>
                     <th scope="col">Address</th>
                     <th scope="col">Phone</th>
@@ -27,6 +47,7 @@
                     <td >
                         <img class="contact-profile-pic" th:src="@{'/images/' + ${contact.imageUrl}}" alt="">
                         <span th:text="${contact.name}"></span>
+
                     </td>
                     <td th:text="${contact.email}"></td>
                     <td th:text="${contact.address}"></td>
@@ -74,7 +95,9 @@
             </ul>
         </nav>
 
-
+        <script>
+            let table = new DataTable('#myTable');
+        </script>
 
     </section>
 </body>

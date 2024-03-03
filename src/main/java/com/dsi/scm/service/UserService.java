@@ -32,6 +32,7 @@ public class UserService {
     public void addAdditionalFieldsWithDefaultValues(User user){
         user.setEnabled(true);
         user.setRole("ROLE_USER");
+        user.setImageUrl("default_user.png");
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     }
 

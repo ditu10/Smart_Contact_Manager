@@ -60,7 +60,7 @@ public class HomeController {
     public String handleRegister(@Valid @ModelAttribute User user, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors()) {
-            System.out.println(result);
+//            System.out.println(result);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
 
@@ -80,6 +80,7 @@ public class HomeController {
 
             return "redirect:/signup";
         }
+
         redirectAttributes.addFlashAttribute("success", "Congratulations, You have Successfully registered!");
         return "redirect:/home";
     }

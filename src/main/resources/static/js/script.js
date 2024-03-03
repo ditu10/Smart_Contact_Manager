@@ -1,12 +1,19 @@
 console.log("hello world!")
 
-const toggleSidebar = () =>{
+const toggleSidebar = () => {
     let sidebar = document.getElementById("main-sidebar");
 
     sidebar.classList.toggle("sidebar-t");
 }
 
-const deleteContact = (contactId) =>{
+
+
+$('#myTable').DataTable( {
+    select: true
+});
+
+
+const deleteContact = (contactId) => {
     Swal.fire({
         title: "Are you sure to delete this contact?",
         text: "You won't be able to revert this!",
@@ -18,7 +25,7 @@ const deleteContact = (contactId) =>{
     }).then((result) => {
         if (result.isConfirmed) {
             window.location.href = "/user/delete?contactId=" + contactId;
-        }else{
+        } else {
             swal("Your contact is safe!!")
         }
     });

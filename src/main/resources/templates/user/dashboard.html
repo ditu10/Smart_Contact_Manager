@@ -6,7 +6,16 @@
 </head>
 <body>
     <section th:fragment="dashboard">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, aperiam atque blanditiis doloribus ducimus eligendi est id laboriosam, minima necessitatibus nisi nobis omnis placeat quas sint sit tempore voluptatum? Adipisci expedita facilis, id iste quam quasi rerum temporibus veritatis voluptas voluptatibus! Aliquam at esse ipsum mollitia obcaecati pariatur porro quos repellat rerum vero. A accusantium assumenda blanditiis, commodi dolorem eligendi ex facilis fugiat officia, quisquam tempore, voluptas voluptates! Ab aspernatur beatae, consequatur consequuntur culpa eligendi eos fugit impedit ipsam iste maiores minus neque, nihil nobis odit perspiciatis, quaerat quam quis rem repellat repellendus reprehenderit rerum sequi tempora temporibus vitae voluptate!</p>
+        <div class="container">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Welcome to Your Dashboard!</h2>
+                    <img width="200px"  th:src="@{/images/add-friend.png}" alt="">
+                    <h2 class="text-secondary mt-3">Start Adding New Contact On Cloud</h2>
+                    <a class="btn btn-outline-success " href="/user/add-contact"> Add new Contact</a>
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 </html>
