@@ -1,5 +1,6 @@
 package com.dsi.scm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +19,7 @@ public class Contact {
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private User user;
 
     public Contact(){}

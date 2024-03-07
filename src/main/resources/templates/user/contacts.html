@@ -5,21 +5,36 @@
     <title>Title</title>
 </head>
 <body>
-    <section class="me-3">
+    <section class="me-3 card px-3 py-3">
 
         <h2 class="text-center">All Contacts</h2>
 
-        <form th:action="@{'/user/pageSize'}" method="post">
 
-            <label>
-                <b>Page size: </b>
-                <input class="py-1" type="number" min="1" max="100" name="pageSize" required >
-                <button class="btn btn-outline-success" type="submit"> <i class="fas fa-save"></i> Save</button>
-            </label>
-        </form>
 
-        <table id="myTable" class="table table-success table-bordered table-striped mt-3">
-            <thead>
+        <div class="d-sm-flex justify-content-between">
+            <div>
+                <form th:action="@{'/user/pageSize'}" method="post">
+
+                    <label>
+                        <b>Page size: </b>
+                        <input class="py-1" type="number" min="1" max="100" name="pageSize" required >
+                        <button class="btn btn-outline-success" type="submit"> <i class="fas fa-save"></i> Save</button>
+                    </label>
+                </form>
+            </div>
+
+            <div class=" search-container mt-sm-2">
+                <input onkeyup="searchHandler()" class="form-control"  type="text" placeholder="Search your contacts" id="search-contact">
+
+                <div id="search-result">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="myTable" class="table table-success table-bordered table-striped mt-3">
+                <thead>
                 <tr>
                     <th scope="col">#ID</th>
                     <th scope="col">
@@ -39,9 +54,9 @@
                     <th scope="col">Phone</th>
                     <th scope="col" class="text-center">Action</th>
                 </tr>
-            </thead>
+                </thead>
 
-            <tbody th:each="contact : ${contacts}">
+                <tbody th:each="contact : ${contacts}">
                 <tr>
                     <td th:text="${contact.id}"></td>
                     <td >
@@ -55,7 +70,7 @@
                     <td>
                         <div class="text-center">
 
-                            <a th:href="@{'/user/' + ${contact.user.id} + '/contact/' + ${contact.id}}" id="viewButton" class="btn btn-outline-primary ">
+                            <a th:href="@{'/user/contact/' + ${contact.id}}" id="viewButton" class="btn btn-outline-primary ">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a th:href="@{'/user/update-contact?contactId=' + ${contact.id}}" class="btn btn-outline-success ">
@@ -68,8 +83,10 @@
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
 
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -95,9 +112,9 @@
             </ul>
         </nav>
 
-        <script>
-            let table = new DataTable('#myTable');
-        </script>
+<!--        <script>-->
+<!--            let table = new DataTable('#myTable');-->
+<!--        </script>-->
 
     </section>
 </body>

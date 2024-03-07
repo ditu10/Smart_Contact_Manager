@@ -6,10 +6,12 @@ import com.dsi.scm.model.Contact;
 import com.dsi.scm.model.User;
 import com.dsi.scm.service.ContactService;
 import com.dsi.scm.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +34,10 @@ public class UserController {
     private final ContactService contactService;
     private int pageSize;
 
-    public UserController(UserService userService, ContactRepository contactRepository, ContactService contactService) {
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService, ContactRepository contactRepository, ContactService contactService, BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.contactRepository = contactRepository;
         this.contactService = contactService;
@@ -121,4 +126,37 @@ public class UserController {
         model.addAttribute("user", user);
         return "user/profile";
     }
+
+    @GetMapping("/settings")
+    public String settingsHandler() {
+
+        return "user/settings";
+    }
+
+    @PostMapping("/change-password")
+    public String changePasswordHandler(@RequestParam String oldPassword,
+                                        @RequestParam String newPassword,
+                                        Model model,
+                                        RedirectAttributes redirectAttributes) {
+        Principal principal = (Principal) model.getAttribute("principal");
+        User user = userService.getUserByUserName(principal.getName());
+
+
+        if(passwordEncoder.matches(oldPassword, user.getPassword())){
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userService.save(user);
+            redirectAttributes.addFlashAttribute("message", "Password Changed successfully!!");
+            redirectAttributes.addFlashAttribute("type", "success");
+        }
+        else {
+
+            redirectAttributes.addFlashAttribute("message", "Wrong Password!!");
+            redirectAttributes.addFlashAttribute("type", "error");
+        }
+        System.out.println(oldPassword + "   " + newPassword);
+        return "redirect:/user/settings";
+    }
 }
+
+// $2a$10$p43pWtZrg1Kq04/yD/PZk.92p/mbnyDzy.D53pJSi5IlCSBk7qIDW
+// $2a$10$mQkhotKOEamna0nc2NsLxeHAZ91qU022N.e8FgYlkhHlattHlhieW

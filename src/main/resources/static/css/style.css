@@ -46,6 +46,19 @@ body{
 
 }
 
+/*search*/
+
+.search-container{
+    position: relative;
+}
+#search-result{
+    position: absolute;
+    background: white;
+    display: none;
+    width: 100%;
+}
+
+
 .contact-profile-pic{
     height: 35px;
     width: 35px;

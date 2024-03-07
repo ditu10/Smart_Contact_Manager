@@ -13,4 +13,6 @@ public interface ContactRepository extends JpaRepository<Contact , Integer> {
     public Page<Contact> getContactsByUser(User user, Pageable pageable);
 
     Contact getContactByUserAndId(User user, int contactId);
+
+    List<Contact> getContactsByNameContainingAndUser(String keyword, User user);
 }

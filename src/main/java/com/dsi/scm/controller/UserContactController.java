@@ -41,11 +41,11 @@ public class UserContactController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/{userId}/contact/{contactId}")
-    public String showContactDetails(@PathVariable int userId,
-                                     @PathVariable int contactId,
+    @GetMapping("/contact/{contactId}")
+    public String showContactDetails(@PathVariable int contactId,
                                      Model model) {
-        User user = userRepository.findUserById(userId);
+        Principal principal = (Principal) model.getAttribute("principal");
+        User user = userService.getUserByUserName(principal.getName());
         Contact contact = contactService.getContactByUserAndContactId(user,contactId);
         model.addAttribute("contact", contact);
         return "user/contact";
@@ -88,7 +88,7 @@ public class UserContactController {
 
             redirectAttributes.addFlashAttribute("message", "contact updated successfully!! Add more...");
             redirectAttributes.addFlashAttribute("type", "success");
-            return "redirect:/user/" + user.getId() + "/contact/" + contact.getId();
+            return "redirect:/user/contact/" + contact.getId();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

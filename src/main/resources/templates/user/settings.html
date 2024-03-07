@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="user/base::layout('settings',~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <section>
+        <div class="card me-3">
+            <div class="card-body">
+                <h2 class="text-center pb-2">Change your password</h2>
+
+                <p class="text-center" th:if="${message}" th:classappend="${type == 'error' ? 'text-danger' : 'text-success'}"  th:text="${message}"></p>
+
+                <form action="" th:action="@{/user/change-password}" method="post">
+                    <div class="input-group mb-3">
+<!--                        <span class="input-group-text" id="basic-password">old passsword</span>-->
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Old Password"
+                               name="oldPassword"
+                               required
+                        >
+                    </div>
+                    <div class="input-group mb-3">
+                        <!--                        <span class="input-group-text" id="basic-password">old passsword</span>-->
+                        <input type="password"
+                               class="form-control"
+                               placeholder="New Password"
+                               name="newPassword"
+                               required
+                        >
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-outline-success" type="submit">
+                            Save</button>
+                        <button class="btn btn-outline-danger" type="reset">
+                            Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
